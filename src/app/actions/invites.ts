@@ -45,7 +45,15 @@ export async function createInviteAction(input: {
     max_uses: parsed.data.maxUses ?? null,
     requires_approval: parsed.data.requiresApproval,
   });
-  if (error) return { ok: false, error: "error.notAllowed" };
+  if (error) {
+  console.error("[SplitEasy] Create invite failed:", {
+    code: error.code,
+    message: error.message,
+    details: error.details,
+  });
+
+  return { ok: false, error: "error.notAllowed" };
+}
 
   revalidatePath(`/groups/${parsed.data.groupId}/members`);
   return { ok: true, inviteUrl: `${getSiteUrl()}/invite/${rawToken}` };
