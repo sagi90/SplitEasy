@@ -93,7 +93,17 @@ export async function getGroupDetail(groupId: string): Promise<GroupDetail | nul
     .select("*")
     .eq("id", groupId)
     .maybeSingle();
-  if (gErr || !group) return null;
+  if (gErr || !group) {
+  console.error("[SplitEasy] Group detail diagnostic:", {
+    groupId,
+    userId: user?.id ?? null,
+    errorCode: gErr?.code ?? null,
+    errorMessage: gErr?.message ?? null,
+    groupFound: !!group,
+  });
+
+  return null;
+}
 
   const { data: memberRows } = await supabase
     .from("group_members")
