@@ -103,8 +103,14 @@ export async function acceptInviteAction(
   });
 
   if (error || !data || data.length === 0) {
-    return { ok: false, error: mapInviteError(error?.message) };
-  }
+  console.error("[SplitEasy] Accept invite failed:", {
+    userId: user.id,
+    errorCode: error?.code ?? null,
+    errorMessage: error?.message ?? null,
+    errorDetails: error?.details ?? null,
+    hasData: !!data,
+    rowCount: data?.length ?? 0,
+  });
   const row = data[0]!;
   revalidatePath("/groups");
   return {
