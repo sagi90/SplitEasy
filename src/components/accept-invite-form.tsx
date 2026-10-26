@@ -51,7 +51,9 @@ export function AcceptInviteForm({
     <form action={formAction} className="space-y-3">
       <input type="hidden" name="token" value={token} />
       <div className="space-y-1.5">
-        <Label htmlFor="displayName">{t("invite.yourName")}</Label>
+        <Label htmlFor="displayName">
+          DEBUG-123 — Enter your name
+        </Label>
         <Input
           id="displayName"
           name="displayName"
