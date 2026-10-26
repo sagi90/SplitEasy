@@ -112,10 +112,12 @@ export async function acceptInviteAction(
     rowCount: data?.length ?? 0,
   });
 
-  return {
-    ok: false,
-    error: mapInviteError(error?.message),
-  };
+return {
+  ok: false,
+  error: error
+    ? `Supabase ${error.code}: ${error.message}`
+    : `No invite result returned`,
+};
 }
   const row = data[0]!;
   revalidatePath("/groups");
