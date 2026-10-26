@@ -111,6 +111,12 @@ export async function acceptInviteAction(
     hasData: !!data,
     rowCount: data?.length ?? 0,
   });
+
+  return {
+    ok: false,
+    error: mapInviteError(error?.message),
+  };
+}
   const row = data[0]!;
   revalidatePath("/groups");
   return {
