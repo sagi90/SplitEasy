@@ -94,7 +94,13 @@ export async function acceptInviteAction(
   }
 
   const user = await ensureSession();
-  if (!user) return { ok: false, error: "error.session" };
+
+  if (!user) {
+    return {
+      ok: false,
+      error: "DEBUG: Session creation failed",
+    };
+  }
 
  const supabase = createClient();
 
