@@ -96,8 +96,21 @@ export async function acceptInviteAction(
   const user = await ensureSession();
   if (!user) return { ok: false, error: "error.session" };
 
-  const supabase = createClient();
-  const { data, error } = await supabase.rpc("accept_invite", {
+ const supabase = createClient();
+
+// Diagnostic: verify the user identity before accepting the invite
+const {
+  data: { user: rpcUser },
+  error: authError,
+} = await supabase.auth.getUser();
+
+console.error("[SplitEasy] Invite auth diagnostic:", {
+  sessionUserId: user.id,
+  rpcUserId: rpcUser?.id ?? null,
+  authError: authError?.message ?? null,
+});
+
+const { data, error } = await supabase.rpc("accept_invite", {
     p_token_hash: hashToken(parsed.data.token),
     p_display_name: parsed.data.displayName,
   });
