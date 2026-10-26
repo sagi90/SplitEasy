@@ -67,7 +67,7 @@ export function AcceptInviteForm({
           {state.error.startsWith("Supabase ") ||
           state.error === "No invite result returned"
             ? state.error
-            : t(state.error)}
+            : state.error}
         </p>
       )}
       <SubmitButton label={t("invite.cta")} />
