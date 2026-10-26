@@ -64,7 +64,10 @@ export function AcceptInviteForm({
       </div>
       {state?.error && (
         <p className="text-sm text-destructive" role="alert">
-          {t(state.error)}
+          {state.error.startsWith("Supabase ") ||
+          state.error === "No invite result returned"
+            ? state.error
+            : t(state.error)}
         </p>
       )}
       <SubmitButton label={t("invite.cta")} />
