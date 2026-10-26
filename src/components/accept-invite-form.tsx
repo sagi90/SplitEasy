@@ -51,9 +51,7 @@ export function AcceptInviteForm({
     <form action={formAction} className="space-y-3">
       <input type="hidden" name="token" value={token} />
       <div className="space-y-1.5">
-        <Label htmlFor="displayName">
-          DEBUG-123 — Enter your name
-        </Label>
+        <Label htmlFor="displayName">{t("invite.yourName")}</Label>
         <Input
           id="displayName"
           name="displayName"
@@ -66,10 +64,7 @@ export function AcceptInviteForm({
       </div>
       {state?.error && (
         <p className="text-sm text-destructive" role="alert">
-          {state.error.startsWith("Supabase ") ||
-          state.error === "No invite result returned"
-            ? state.error
-            : state.error}
+          {t(state.error)}
         </p>
       )}
       <SubmitButton label={t("invite.cta")} />
